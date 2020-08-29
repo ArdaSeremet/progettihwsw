@@ -13,12 +13,12 @@ README = read_file("README.md")
 
 setuptools.setup(
     name="ProgettiHWSW",
-    version="0.1.0",
+    version="0.1.1",
     long_description="\n\n".join([README]),
     long_description_content_type="text/markdown",
     description="Controls ProgettiHWSW relay boards.",
     url="http://github.com/ardaseremet/progettihwsw",
-    download_url="http://github.com/ardaseremet/progettihwsw/tarball/0.1.0",
+    download_url="http://github.com/ardaseremet/progettihwsw/tarball/0.1.1",
     author="Arda Seremet",
     author_email="ardaseremet@outlook.com",
     license="MIT",

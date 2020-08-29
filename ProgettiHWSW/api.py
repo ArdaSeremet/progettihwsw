@@ -2,7 +2,7 @@
 
 import aiohttp
 import async_timeout
-
+from asyncio import TimeoutError
 
 class API:
     """Class to interact with the API of ProgettiHWSW boards."""
@@ -12,10 +12,13 @@ class API:
         self.ip = ip
 
     async def request(self, path: str):
-        with async_timeout.timeout(5):
-            async with aiohttp.request("GET", f"{self.ip}/{path}") as resp:
-                return await resp.text()
-
+        try:
+            with async_timeout.timeout(5):
+                async with aiohttp.request("GET", f"{self.ip}/{path}") as resp:
+                    return await resp.text()
+        except TimeoutError:
+            return False
+    
     async def execute(self, code: int):
         """Make requests with API codes for boards."""
         try:
