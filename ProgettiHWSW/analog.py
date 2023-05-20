@@ -6,24 +6,24 @@ from .api import API
 from .const import STATUS_XML_PATH
 
 
-class Input:
-    """Class that represents an input object."""
+class AnalogInput:
+    """Class that represents an analog input object."""
 
-    def __init__(self, api: API, input_number: int):
-        """Initialize Input class."""
-        self.input_number = int(input_number)
+    def __init__(self, api: API, pot_number: int):
+        """Initialize AnalogInput class."""
+        self.pot_number = int(pot_number)
         self.api = api
-        self.state = None
+        self._state = None
 
     @property
     def id(self) -> int:
-        """Return the input number."""
-        return self.input_number
+        """Return the analog number."""
+        return self.pot_number
 
     @property
-    def is_on(self) -> bool:
-        """Return if the input is on."""
-        return self.state
+    def state(self):
+        """Return the analog input value."""
+        return self._state
 
     async def update(self):
         """Update the input status."""
@@ -33,9 +33,9 @@ class Input:
 
         root = etree.XML(bytes(request, encoding='utf-8'))
 
-        path = root.xpath(f"//btn{str(self.input_number)}")
+        path = root.xpath(f"//pot{str(self.pot_number)}")
         if not len(path) > 0:
             return False
 
-        self.state = True if path[0].text in ("up", "1", "on") else False
+        self._state = path[0].text
         return True
