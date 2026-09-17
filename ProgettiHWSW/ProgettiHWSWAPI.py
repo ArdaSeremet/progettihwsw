@@ -73,13 +73,16 @@ class ProgettiHWSWAPI:
 
         states = {}
         for i in tags:
-            number = str(i.tag[len(tag):], 16)
+            # FIX: use int() instead of str() for base 16 conversion
+            #number = str(i.tag[len(tag):], 16)
+            number = int(i.tag[len(tag):], 16)
             if is_analog:
                 states[number] = i.text
             else:
-                states[number] = (
-                    True if i.text in ("up", "1", "on") else False
-                )
+                #states[number] = (
+                #    True if i.text in ("up", "1", "on") else False
+                #)
+                states[number] = i.text in ("up", "1", "on")
 
         return states
 
