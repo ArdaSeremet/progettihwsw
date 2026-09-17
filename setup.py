@@ -11,14 +11,21 @@ def read_file(file):
 
 README = read_file("README.md")
 
+DEFAULT_VERSION = "0.1.4"
+VERSION = os.environ.get("VERSION", DEFAULT_VERSION)
+if VERSION.startswith("v"):
+    VERSION = VERSION[1:]
+
+DOWNLOAD_URL = f"http://github.com/ardaseremet/progettihwsw/tarball/{VERSION}"
+
 setuptools.setup(
     name="ProgettiHWSW",
-    version="0.1.3",
+    version=VERSION,
     long_description="\n\n".join([README]),
     long_description_content_type="text/markdown",
     description="Controls ProgettiHWSW relay boards.",
     url="http://github.com/ardaseremet/progettihwsw",
-    download_url="http://github.com/ardaseremet/progettihwsw/tarball/0.1.3",
+    download_url=DOWNLOAD_URL,
     author="Arda Seremet",
     author_email="ardaseremet@outlook.com",
     license="MIT",
